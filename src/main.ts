@@ -10,11 +10,20 @@ const UserSchema = z.object({
   country: z.enum(["India", "USA", "Canada"]),
 });
 
+// .extend({ name: z.string() }) extend the current schema
+
+// .merge(z.object({ city: z.string() })) merge another schema
+
+// .strict() will through error if any extra field is found in the object
+
+// .passthrough() returns the extra key value pairs from the parse method
+
 // creating type by infering to the schema
-type User = z.infer<typeof UserSchema>;
+// type User = z.infer<typeof UserSchema>;
 
 const user = {
   username: "harry",
+  name: "harry",
   email: "harry@mail.com",
   age: 20,
   userType: "GUEST",
@@ -22,3 +31,4 @@ const user = {
 };
 
 console.log(UserSchema.parse(user));
+// console.log(UserSchema.partial().parse(user)); // partial makes all fields optional
